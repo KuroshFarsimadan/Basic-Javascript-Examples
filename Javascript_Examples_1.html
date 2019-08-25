@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Basic javascript calculations</title>
+    <meta charset="utf-8">
+    <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js">
+</script>
+<![endif]-->
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h1>Example 1</h1>
+    <form>
+        <label>Nettotulot: </label>
+        <input type="text" id="nettotulot" size="5">
+        <input type="button" value="Laske päiväsakko" onclick="laskePaivasakko()">
+    </form>
+    <div id="vastaus"></div>
+
+    <h1>Example 2</h1>
+    <form>
+        <label>Paketin hinta: </label>
+        <input type="text" id="pakettihinta" size="5">
+        <label>Maaraaika: </label>
+        <input type="text" id="maaraaika" size="5">
+        <input type="button" value="Laske kokonaishinta" onclick="laskeKokonaishinta()">
+    </form>
+    <div id="vastaus2"></div>
+
+    <h1>Example 3</h1>
+    <form>
+        <label>Vuokra: </label>
+        <input type="text" id="vuokra" size="5">
+        <label>Osallistujat: </label>
+        <input type="text" id="osallistujat" size="5">
+        <input type="button" value="Laske vuokra" onclick="laskeHinta()">
+    </form>
+    <div id="vastaus3"></div>
+
+    <h1>Example 4</h1>
+    <form>
+        <label>Kilometrit: </label>
+        <input type="text" id="kilometrit" size="5">
+        <label>Kulutus: </label>
+        <input type="text" id="kulutus" size="5">
+        <label>Litrahinta: </label>
+        <input type="text" id="litrahinta" size="5">
+        <label>Maara: </label>
+        <input type="text" id="maara" size="5">
+        <input type="button" value="Laske vuokra" onclick="laskePolttoaine()">
+    </form>
+    <div id="vastaus4"></div>
+
+    <h1>Example 5</h1>
+    <form>
+        <label>Bruttopalkka: </label>
+        <input type="text" id="bruttopalkka" size="5">
+        <label>Veroprosentti: </label>
+        <input type="text" id="veroprosentti" size="5">
+        <input type="button" value="Laske palkka" onclick="laskePalkka()">
+    </form>
+    <div id="vastaus5"></div>
+    <div id="vastaus6"></div>
+    <div id="vastaus7"></div>
+    <div id="vastaus8"></div>
+
+    <script>
+
+        function laskePalkka() {
+            var bruttopalkka = document.getElementById("bruttopalkka").value;
+            var veroprosentti = document.getElementById("veroprosentti").value;
+
+            bruttopalkka = parseFloat(bruttopalkka);
+            veroprosentti = parseFloat(veroprosentti);
+
+
+            var veronOsuus = bruttopalkka * veroprosentti / 100;
+            var tyottomyysmaksu = bruttopalkka * 0.015;
+            var tyoelakemaksu = bruttopalkka * 0.0675
+            var kateenjaava = bruttopalkka - veronOsuus - tyottomyysmaksu - tyoelakemaksu;
+
+
+            var palautettava = veronOsuus.toFixed(2);
+            document.getElementById("vastaus5").innerHTML = "Veron osuus " + palautettava;
+
+            var palautettava2 = tyottomyysmaksu.toFixed(2);
+            document.getElementById("vastaus7").innerHTML = "Tyottomyysvakuutuksen osuus " + palautettava2;
+
+            var palautettava3 = tyoelakemaksu.toFixed(2);
+            document.getElementById("vastaus6").innerHTML = "Tyoelakevakuutusmaksun osuus " + palautettava3;
+
+            var palautettava4 = kateenjaava.toFixed(2);
+            document.getElementById("vastaus8").innerHTML = "Kateen jaa " + palautettava4;
+
+
+           
+        }
+
+
+        function laskePolttoaine() {
+            var kilometrit = document.getElementById("kilometrit").value;
+            var kulutus = document.getElementById("kulutus").value;
+            var litrahinta = document.getElementById("litrahinta").value;
+            var maara = document.getElementById("maara").value;
+
+            kilometrit = parseFloat(kilometrit);
+            kulutus = parseFloat(kulutus);
+            litrahinta = parseFloat(litrahinta);
+            maara = parseFloat(maara);
+
+            var palautettava = kulutus / 100.0 * litrahinta * kilometrit / maara;
+            palautettava = palautettava.toFixed(2);
+
+            document.getElementById("vastaus4").innerHTML = "Polttoaine per henkilo on " + palautettava;
+        }
+
+
+        //  Päiväsakon määrä lasketaan (nettotulot - 255)/60. Tee ohjelma, mikä kertoo yhden päiväsakon määrän. 
+        function laskePaivasakko() {
+            var paivasakko = document.getElementById("nettotulot").value;
+            paivasakko = parseFloat(paivasakko);
+            paivasakko = (paivasakko - 255) / 60;
+            paivasakko = paivasakko.toFixed(2);
+            document.getElementById("vastaus").innerHTML = "Paivasakko on " + paivasakko;
+        }
+
+        function laskeKokonaishinta() {
+            var pakettihinta = document.getElementById("pakettihinta").value;
+            var maaraaika = document.getElementById("maaraaika").value;
+            pakettihinta = parseFloat(pakettihinta);
+            maaraaika = parseFloat(maaraaika);
+            var palautettava = pakettihinta * maaraaika;
+            palautettava = palautettava.toFixed(2);
+
+            document.getElementById("vastaus2").innerHTML = "Kokonaishinta on " + palautettava;
+        }
+
+
+        function laskeHinta() {
+            var vuokra = document.getElementById("vuokra").value;
+            var osallistujat = document.getElementById("osallistujat").value;
+            vuokra = parseFloat(vuokra);
+            osallistujat = parseFloat(osallistujat);
+            var palautettava = vuokra / osallistujat;
+            palautettava = palautettava.toFixed(2);
+
+            document.getElementById("vastaus3").innerHTML = "Vuokra per henkilo on " + palautettava;
+        }
+
+
+
+    </script>
+</body>
+
+</html>
