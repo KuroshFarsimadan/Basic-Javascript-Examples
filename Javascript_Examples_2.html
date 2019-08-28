@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Basic javascript calculations 2</title>
+    <meta charset="utf-8">
+    <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js">
+</script>
+<![endif]-->
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h1>Example 1</h1>
+    <form>
+        <label>Price: </label>
+        <input type="text" id="myyntipalkkio" size="5">
+        <input type="button" value="Laske" onclick="laskeMyyntipalkkio()">
+    </form>
+    <div id="vastaus"></div>
+
+    <h1>Example 2</h1>
+    <form>
+        <label>Weight: </label>
+        <input type="text" id="paino" size="5"> kg <br> <br>
+        <label>Height: </label>
+        <input type="text" id="pituus" size="5"> cm <br> <br>
+        <input type="button" value="Laske" onclick="laskePainoPituus()">
+    </form>
+    <div id="vastaus2"></div>
+
+    <h1>Example 3</h1>
+    <form>
+        <label>Bet: </label>
+        <input type="text" id="panos" size="5">
+        <input type="button" value="Pelaa" onclick="laskePanos()">
+    </form>
+    <div id="vastaus3"></div>
+
+    <h1>Example 4</h1>
+    <form>
+        <label>Speed: </label>
+        <input type="text" id="nopeus" size="5">
+
+        <label>Speed limit: </label>
+        <input type="text" id="rajoitus" size="5">
+        <input type="button" value="Kerro sakko" onclick="laskeNopeusrajoitus()">
+    </form>
+    <div id="vastaus4"></div>
+
+    <script>
+
+        function laskeNopeusrajoitus() {
+            var nopeus = parseInt(document.getElementById("nopeus").value);
+            var rajoitus = parseInt(document.getElementById("rajoitus").value);
+
+            var palautettava = "";
+            console.log(nopeus - rajoitus)
+
+            if (rajoitus <= 60) {
+                console.log("1 " + nopeus - rajoitus)
+                if ((nopeus - rajoitus) <= 15) {
+                    palautettava = "Rikesakko on " + 170;
+                } else if ((nopeus - rajoitus) > 15 && (nopeus - rajoitus) <= 20) {
+                    palautettava = "Rikesakko on " + 200;
+                } else {
+                    palautettava = "Menee paivasakolle";
+                }
+            } else {
+                console.log("2 " + nopeus - rajoitus)
+                if ((nopeus - rajoitus) <= 15) {
+                    palautettava = "Rikesakko on " + 140;
+                } else if ((nopeus - rajoitus) > 15 && (nopeus - rajoitus) <= 20) {
+                    palautettava = "Rikesakko on " + 200;
+                } else {
+                    palautettava = "Menee paivasakolle";
+                }
+            }
+
+
+            document.getElementById("vastaus4").innerHTML = palautettava;
+        }
+
+
+        function laskePanos() {
+            var panos = document.getElementById("panos").value;
+            panos = parseInt(panos);
+            var noppa = Math.round((Math.random() * 5) + 1);
+            var palautettava = "Noppa oli " + noppa + " - ";
+            if (noppa === 1 || noppa === 3 || noppa === 5) {
+                palautettava += "Ei voittoa";
+            } else if (noppa === 2 || noppa === 4) {
+                palautettava += "voitto on " + (1.25 * panos).toFixed(2);
+            } else {
+                palautettava += "voitto on " + (1.5 * panos).toFixed(2);
+            }
+            document.getElementById("vastaus3").innerHTML = palautettava;
+        }
+
+        function laskeMyyntipalkkio() {
+            var myyntipalkkio = document.getElementById("myyntipalkkio").value;
+            myyntipalkkio = parseFloat(myyntipalkkio);
+            myyntipalkkio = myyntipalkkio * (3.44 / 100);
+            if (myyntipalkkio < 2400) {
+                myyntipalkkio = 2400
+            }
+            myyntipalkkio = myyntipalkkio.toFixed(2);
+            document.getElementById("vastaus").innerHTML = "Myyntipalkkio on " + myyntipalkkio + " euroa";
+        }
+
+        function laskePainoPituus() {
+            var paino = document.getElementById("paino").value;
+            var pituus = document.getElementById("pituus").value;
+            paino = parseFloat(paino);
+            pituus = parseFloat(pituus);
+            var painoIndeksi = paino / (pituus / 100.0 * pituus / 100.0);
+            var palautettava = "";
+            if (painoIndeksi < 18.5) {
+                palautettava = "Normaalia alhaisempi paino";
+            } else if (painoIndeksi >= 18.5 && painoIndeksi < 25.0) {
+                palautettava = "Normaali paino";
+            } else {
+                palautettava = "Ylipaino";
+            }
+            painoIndeksi = painoIndeksi.toFixed(2);
+            document.getElementById("vastaus2").innerHTML = "Painoindeksi on " + painoIndeksi + " (" + palautettava + ')';
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
